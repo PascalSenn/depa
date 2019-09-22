@@ -1,0 +1,13 @@
+{
+	"folders": [
+		{
+			"path": "ch.fhnw.depa"
+		},
+		{
+			"path": "ch.fhnw.depa.u01"
+		}
+	],
+	"settings": {
+		"java.configuration.updateBuildConfiguration": "automatic"
+	}
+}
