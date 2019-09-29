@@ -5,12 +5,18 @@
 
 package jdraw.std;
 
+import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.List;
 import java.util.stream.Stream;
 
 import jdraw.framework.DrawCommandHandler;
 import jdraw.framework.DrawModel;
+import jdraw.framework.DrawModelEvent;
 import jdraw.framework.DrawModelListener;
 import jdraw.framework.Figure;
+import jdraw.framework.FigureEvent;
+import jdraw.framework.FigureListener;
 
 /**
  * Provide a standard behavior for the drawing model. This class initially does not implement the methods
@@ -19,37 +25,35 @@ import jdraw.framework.Figure;
  * @author TODO add your name here
  *
  */
-public class StdDrawModel implements DrawModel {
-
+public class StdDrawModel implements DrawModel, FigureListener {
+	private final List<Figure> figures = new ArrayList<Figure>();
+	private final List<DrawModelListener> modelChangeListeners = new ArrayList<DrawModelListener>();
+	
 	@Override
 	public void addFigure(Figure f) {
-		// TODO to be implemented
-		System.out.println("StdDrawModel.addFigure has to be implemented");
+		registerFigureListener(f);
+		figures.add(f);
 	}
 
 	@Override
-	public Stream<Figure> getFigures() {
-		// TODO to be implemented  
-		System.out.println("StdDrawModel.getFigures has to be implemented");
-		return Stream.empty(); // Only guarantees, that the application starts -- has to be replaced !!!
+	public Stream<Figure> getFigures() { 
+		return figures.stream();
 	}
 
 	@Override
 	public void removeFigure(Figure f) {
-		// TODO to be implemented  
-		System.out.println("StdDrawModel.removeFigure has to be implemented");
+		unregisterFigureListener(f);
+		figures.remove(f);
 	}
-
+	
 	@Override
 	public void addModelChangeListener(DrawModelListener listener) {
-		// TODO to be implemented  
-		System.out.println("StdDrawModel.addModelChangeListener has to be implemented");
+		modelChangeListeners.add(listener);
 	}
 
 	@Override
 	public void removeModelChangeListener(DrawModelListener listener) {
-		// TODO to be implemented  
-		System.out.println("StdDrawModel.removeModelChangeListener has to be implemented");
+		modelChangeListeners.remove(listener);
 	}
 
 	/** The draw command handler. Initialized here with a dummy implementation. */
@@ -72,9 +76,46 @@ public class StdDrawModel implements DrawModel {
 	}
 
 	@Override
-	public void removeAllFigures() {
-		// TODO to be implemented  
-		System.out.println("StdDrawModel.removeAllFigures has to be implemented");
+	public void removeAllFigures() { 
+		for (var iterator = figures.iterator(); iterator.hasNext();) {
+		    var figure = iterator.next(); 
+		    unregisterFigureListener(figure);
+		    iterator.remove();
+		} 
+	}
+
+	@Override
+	public void figureChanged(FigureEvent e) { 
+		handleFigureChanged(e.getFigure());
+	}
+
+	private void handleFigureChanged(Figure f) {
+		notifyDrawModelListeners(new DrawModelEvent(this,f , DrawModelEvent.Type.FIGURE_CHANGED )); 
+	}
+
+	private void handleFigureAdd(Figure f) {
+		notifyDrawModelListeners(new DrawModelEvent(this, f, DrawModelEvent.Type.FIGURE_ADDED )); 
+	}
+
+	private void handleFigureRemoved(Figure f) {
+		notifyDrawModelListeners(new DrawModelEvent(this, f, DrawModelEvent.Type.FIGURE_REMOVED )); 
+	}
+	
+	private void notifyDrawModelListeners(DrawModelEvent e) {
+		for(var listener: modelChangeListeners ) {
+			listener.modelChanged(e);
+		}
+	}
+	
+	private void unregisterFigureListener(Figure f) { 
+		f.removeFigureListener(this);
+		handleFigureRemoved(f);
+	}
+
+	
+	private void registerFigureListener(Figure f) {
+		f.addFigureListener(this);
+		handleFigureAdd(f); 
 	}
 
 }

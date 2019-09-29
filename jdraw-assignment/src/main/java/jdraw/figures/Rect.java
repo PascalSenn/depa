@@ -9,9 +9,11 @@ import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Point;
 import java.awt.Rectangle;
+import java.util.ArrayList;
 import java.util.List;
 
 import jdraw.framework.Figure;
+import jdraw.framework.FigureEvent;
 import jdraw.framework.FigureHandle;
 import jdraw.framework.FigureListener;
 
@@ -23,12 +25,13 @@ import jdraw.framework.FigureListener;
  */
 public class Rect implements Figure {
 	private static final long serialVersionUID = 9120181044386552132L;
-
+	
 	/**
 	 * Use the java.awt.Rectangle in order to save/reuse code.
 	 */
 	private final Rectangle rectangle;
 	
+	private final List<FigureListener> changeListeners = new ArrayList<FigureListener>();
 	/**
 	 * Create a new rectangle of the given dimension.
 	 * @param x the x-coordinate of the upper left corner of the rectangle
@@ -55,13 +58,13 @@ public class Rect implements Figure {
 	@Override
 	public void setBounds(Point origin, Point corner) {
 		rectangle.setFrameFromDiagonal(origin, corner);
-		// TODO notification of change
+		handleFigureChange();
 	}
 
 	@Override
 	public void move(int dx, int dy) {
 		rectangle.setLocation(rectangle.x + dx, rectangle.y + dy);
-		// TODO notification of change
+		handleFigureChange();
 	}
 
 	@Override
@@ -86,17 +89,27 @@ public class Rect implements Figure {
 
 	@Override
 	public void addFigureListener(FigureListener listener) {
-		// TODO Auto-generated method stub
+		changeListeners.add(listener);
 	}
 
 	@Override
 	public void removeFigureListener(FigureListener listener) {
-		// TODO Auto-generated method stub
+		changeListeners.remove(listener);
 	}
 
 	@Override
 	public Figure clone() {
 		return null;
+	}
+	
+	private void handleFigureChange() {
+		notifyChangeListener(new FigureEvent(this));
+	}
+	
+	private void notifyChangeListener(FigureEvent e) {
+		for(var listener: changeListeners) {
+			listener.figureChanged(e);
+		}
 	}
 
 }
