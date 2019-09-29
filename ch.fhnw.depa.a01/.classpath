@@ -6,5 +6,6 @@
 			<attribute name="module" value="true"/>
 		</attributes>
 	</classpathentry>
+	<classpathentry kind="lib" path="C:/kot/depa/ch.fhnw.depa.a01/lib/jmetro-11.5.10.jar"/>
 	<classpathentry kind="output" path="classes"/>
 </classpath>

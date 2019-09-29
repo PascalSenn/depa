@@ -6,6 +6,7 @@ import javafx.application.Application;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
+import jfxtras.styles.jmetro.JMetro; 
 
 /**
  * Startet die Anwendung.
@@ -20,8 +21,8 @@ public final class App extends Application {
         MainMenuBar mb = new MainMenuBar(color);
         Parent rootPanel = new ApplicationUI(pm, mb);
         
-        Scene scene = new Scene(rootPanel);
-        
+        Scene scene = new Scene(rootPanel); 
+        new JMetro().setScene(scene);
         stage.setScene(scene);
         color.notifyObservers();
         stage.show();
