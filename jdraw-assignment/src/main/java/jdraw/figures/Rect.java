@@ -5,28 +5,20 @@
 
 package jdraw.figures;
 
-import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Point;
-import java.awt.Rectangle;
 import java.awt.geom.Rectangle2D;
-import java.awt.geom.RectangularShape;
-import java.security.PrivilegedExceptionAction;
-import java.util.ArrayList;
 import java.util.List;
-import java.util.concurrent.CopyOnWriteArrayList;
 
 import jdraw.framework.Figure;
-import jdraw.framework.FigureEvent;
 import jdraw.framework.FigureHandle;
-import jdraw.framework.FigureListener;
 
 /**
  * Represents rectangles in JDraw.
  *
  * @author Christoph Denzler
  */
-public class Rect extends FigureRectangularShape<Rectangle2D> {
+public class Rect extends RectangularShapeStrategy<Rectangle2D> {
     private static final long serialVersionUID = 9120181044386552132L;
 
     /**

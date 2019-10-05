@@ -7,19 +7,25 @@ import java.awt.*;
 import java.awt.Rectangle;
 import java.awt.geom.RectangularShape;
 
-public abstract class FigureRectangularShape<T extends Shape> extends FigureBase {
+/**
+ * Every child of this strategy can be drawn  inside of a rectangle.
+ * A line is i.E. is the diagonal axis
+ * An ovals outer bounds are also a rectangle
+ * @param <T>
+ */
+public abstract class RectangularShapeStrategy<T extends Shape> extends FigureBase {
     private final Rectangle rectangle;
 
     private final T shape;
 
 
-    public FigureRectangularShape(T shape, int x, int y, int w, int h) {
+    public RectangularShapeStrategy(T shape, int x, int y, int w, int h) {
         this.shape = shape;
         rectangle = new Rectangle(x, y, w, h);
     }
 
     /**
-     * Draw the rectangle to the given graphics context.
+     * Draw the shape into a recatnlge to the given graphics context.
      *
      * @param g the graphics context to use for drawing.
      */

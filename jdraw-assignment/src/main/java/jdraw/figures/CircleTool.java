@@ -6,12 +6,8 @@
 package jdraw.figures;
 
 import jdraw.framework.DrawContext;
-import jdraw.framework.DrawTool;
-import jdraw.framework.DrawView;
 
-import javax.swing.*;
 import java.awt.*;
-import java.awt.event.MouseEvent;
 
 /**
  * This tool defines a mode for drawing circles.
@@ -19,7 +15,7 @@ import java.awt.event.MouseEvent;
  * @author Christoph Denzler
  * @see jdraw.framework.Figure
  */
-public class CircleTool extends RectangularShapeTool {
+public class CircleTool extends RectangularShapeToolBase {
 
 	/**
 	 * Create a new rectangle tool for the given context.
@@ -32,7 +28,7 @@ public class CircleTool extends RectangularShapeTool {
 
 
 	@Override
-	public FigureRectangularShape createFigure(int x, int y) {
+	public RectangularShapeStrategy createFigure(int x, int y) {
 		return new Oval(x, y, 0, 0);
 	}
 

@@ -5,16 +5,9 @@
 
 package jdraw.figures;
 
-import java.awt.Cursor;
 import java.awt.Point;
-import java.awt.event.MouseEvent;
-
-import javax.swing.Icon;
-import javax.swing.ImageIcon;
 
 import jdraw.framework.DrawContext;
-import jdraw.framework.DrawTool;
-import jdraw.framework.DrawView;
 
 /**
  * This tool defines a mode for drawing rectangles.
@@ -22,7 +15,7 @@ import jdraw.framework.DrawView;
  * @author Christoph Denzler
  * @see jdraw.framework.Figure
  */
-public class RectTool extends RectangularShapeTool {
+public class RectTool extends RectangularShapeToolBase {
 
 
     /**
@@ -36,7 +29,7 @@ public class RectTool extends RectangularShapeTool {
 
 
     @Override
-    public FigureRectangularShape createFigure(int x, int y) {
+    public RectangularShapeStrategy createFigure(int x, int y) {
         return new Rect(x, y, 0, 0);
     }
 

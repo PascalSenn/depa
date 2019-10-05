@@ -9,17 +9,15 @@ import jdraw.framework.Figure;
 import jdraw.framework.FigureHandle;
 
 import java.awt.*;
-import java.awt.geom.Ellipse2D;
 import java.awt.geom.Line2D;
-import java.awt.geom.Rectangle2D;
 import java.util.List;
 
 /**
- * Represents rectangles in JDraw.
+ * Represents line in JDraw.
  *
  * @author Christoph Denzler
  */
-public class Line extends FigureRectangularShape<Line2D> {
+public class Line extends RectangularShapeStrategy<Line2D> {
     private static final long serialVersionUID = 9120181044386552132L;
 
     /**
@@ -50,7 +48,7 @@ public class Line extends FigureRectangularShape<Line2D> {
     }
 
     /**
-     * Returns a list of 8 handles for this Rectangle.
+     * Returns a list of 8 handles for this Shape.
      *
      * @return all handles that are attached to the targeted figure.
      * @see Figure#getHandles()

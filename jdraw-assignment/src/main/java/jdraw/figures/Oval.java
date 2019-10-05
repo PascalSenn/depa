@@ -10,16 +10,14 @@ import jdraw.framework.FigureHandle;
 
 import java.awt.*;
 import java.awt.geom.Ellipse2D;
-import java.awt.geom.RectangularShape;
-import java.io.ObjectInputStream;
 import java.util.List;
 
 /**
- * Represents rectangles in JDraw.
+ * Represents ovals in JDraw.
  *
  * @author Christoph Denzler
  */
-public class Oval extends FigureRectangularShape<Ellipse2D> {
+public class Oval extends RectangularShapeStrategy<Ellipse2D> {
     private static final long serialVersionUID = 9120181044386552132L;
 
     /**

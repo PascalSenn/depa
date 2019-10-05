@@ -10,15 +10,15 @@ import jdraw.framework.DrawContext;
 import java.awt.*;
 
 /**
- * This tool defines a mode for drawing circles.
+ * This tool defines a mode for drawing lines.
  *
  * @author Christoph Denzler
  * @see jdraw.framework.Figure
  */
-public class LineTool extends RectangularShapeTool {
+public class LineTool extends RectangularShapeToolBase {
 
 	/**
-	 * Create a new rectangle tool for the given context.
+	 * Create a new line tool for the given context.
 	 *
 	 * @param context a context to use this tool in.
 	 */
@@ -28,7 +28,7 @@ public class LineTool extends RectangularShapeTool {
 
 
 	@Override
-	public FigureRectangularShape createFigure(int x, int y) {
+	public RectangularShapeStrategy createFigure(int x, int y) {
 		return new Line(x, y, 0, 0);
 	}
 

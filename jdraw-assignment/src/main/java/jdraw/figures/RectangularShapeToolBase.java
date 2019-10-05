@@ -19,7 +19,7 @@ import java.awt.event.MouseEvent;
  * @author Christoph Denzler
  * @see jdraw.framework.Figure
  */
-public abstract class RectangularShapeTool implements DrawTool {
+public abstract class RectangularShapeToolBase implements DrawTool {
     /**
      * the image resource path.
      */
@@ -37,11 +37,11 @@ public abstract class RectangularShapeTool implements DrawTool {
     private final DrawView view;
 
     /**
-     * Temporary variable. During rectangular shape creation (during a
+     * Temporary variable. During  shape creation (during a
      * mouse down - mouse drag - mouse up cycle) this variable refers
      * to the new rectangle that is inserted.
      */
-    protected FigureRectangularShape newShape = null;
+    protected RectangularShapeStrategy newShape = null;
 
     /**
      * Temporary variable.
@@ -57,7 +57,7 @@ public abstract class RectangularShapeTool implements DrawTool {
      *
      * @param context a context to use this tool in.
      */
-    public RectangularShapeTool(String name, DrawContext context) {
+    public RectangularShapeToolBase(String name, DrawContext context) {
         this.name = name;
         this.context = context;
         this.view = context.getView();
@@ -91,7 +91,7 @@ public abstract class RectangularShapeTool implements DrawTool {
      * @param y y-coordinate of mouse
      * @see DrawTool#mouseDown(int, int, MouseEvent)
      */
-    public abstract FigureRectangularShape createFigure(int x, int y);
+    public abstract RectangularShapeStrategy createFigure(int x, int y);
 
     public abstract void updateFigure(int x, int y);
 
