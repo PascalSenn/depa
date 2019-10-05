@@ -31,4 +31,7 @@ public abstract class FigureBase implements Figure {
             listener.figureChanged(e);
         }
     }
+
+    @Override
+    public abstract Figure clone();
 }
