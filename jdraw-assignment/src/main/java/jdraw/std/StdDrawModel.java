@@ -36,6 +36,7 @@ public class StdDrawModel implements DrawModel, FigureListener {
     public void addFigure(Figure f) {
         if (!figures.contains(f)) {
             figures.add(f);
+            handleFigureAdd(f);
             registerFigureListener(f);
         }
     }
@@ -49,6 +50,7 @@ public class StdDrawModel implements DrawModel, FigureListener {
     public void removeFigure(Figure f) {
         if (figures.contains(f)) {
             unregisterFigureListener(f);
+            handleFigureRemoved(f);
             figures.remove(f);
         }
     }
@@ -137,13 +139,11 @@ public class StdDrawModel implements DrawModel, FigureListener {
 
     private void unregisterFigureListener(Figure f) {
         f.removeFigureListener(this);
-        handleFigureRemoved(f);
     }
 
 
     private void registerFigureListener(Figure f) {
         f.addFigureListener(this);
-        handleFigureAdd(f);
     }
 
 }
