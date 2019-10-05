@@ -23,15 +23,13 @@ import jdraw.framework.FigureListener;
  *
  * @author Christoph Denzler
  */
-public class Rect implements Figure {
+public class Rect extends FigureBase {
     private static final long serialVersionUID = 9120181044386552132L;
 
     /**
      * Use the java.awt.Rectangle in order to save/reuse code.
      */
     private final Rectangle rectangle;
-
-    private final List<FigureListener> changeListeners = new CopyOnWriteArrayList<>();
 
     /**
      * Create a new rectangle of the given dimension.
@@ -94,28 +92,9 @@ public class Rect implements Figure {
     }
 
     @Override
-    public void addFigureListener(FigureListener listener) {
-        changeListeners.add(listener);
-    }
-
-    @Override
-    public void removeFigureListener(FigureListener listener) {
-        changeListeners.remove(listener);
-    }
-
-    @Override
     public Figure clone() {
         return null;
     }
 
-    private void handleFigureChange() {
-        notifyChangeListener(new FigureEvent(this));
-    }
-
-    private void notifyChangeListener(FigureEvent e) {
-        for (var listener : changeListeners) {
-            listener.figureChanged(e);
-        }
-    }
 
 }
