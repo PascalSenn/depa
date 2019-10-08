@@ -17,7 +17,7 @@ import java.util.List;
  *
  * @author Christoph Denzler
  */
-public class Line extends RectangularShapeStrategy<Line2D> {
+public class Line extends PointToPointBase<Line2D> {
     private static final long serialVersionUID = 9120181044386552132L;
 
     /**
@@ -32,14 +32,14 @@ public class Line extends RectangularShapeStrategy<Line2D> {
         super(new Line2D.Double(), x,y,w,h);
     }
 
-
     @Override
-    protected void drawFill(Graphics g, int x, int y, int width, int height) {
+    protected void drawFill(Graphics g, Point start, Point end) {
+
     }
 
     @Override
-    protected void drawBorder(Graphics g, int x, int y, int width, int height) {
-        g.drawLine(x,y,x+ width,y+height);
+    protected void drawBorder(Graphics g, Point start, Point end) {
+        g.drawLine(start.x, start.y, end.x, end.y);
     }
 
     @Override

@@ -17,7 +17,7 @@ import java.util.List;
  *
  * @author Christoph Denzler
  */
-public class Oval extends RectangularShapeStrategy<Ellipse2D> {
+public class Oval extends RectangularShapeBase<Ellipse2D> {
     private static final long serialVersionUID = 9120181044386552132L;
 
     /**
@@ -45,8 +45,16 @@ public class Oval extends RectangularShapeStrategy<Ellipse2D> {
     }
 
     @Override
+    public void move(Ellipse2D shape, int dx, int dy) {
+        var bounds = shape.getBounds();
+        shape.setFrame(bounds.x+dx,bounds.y+dy, bounds.width, bounds.height);
+    }
+
+
+    @Override
     public void setBoundsOnShape(Ellipse2D shape, Point origin, Point corner) {
         shape.setFrameFromDiagonal(origin, corner);
+
     }
 
     /**

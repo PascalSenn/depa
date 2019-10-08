@@ -5,23 +5,24 @@ import jdraw.framework.FigureHandle;
 
 import java.awt.*;
 import java.awt.Rectangle;
+import java.awt.geom.AffineTransform;
 import java.awt.geom.RectangularShape;
 
 /**
- * Every child of this strategy can be drawn  inside of a rectangle.
+ * Every child of this base can be drawn  inside of a rectangle.
  * A line is i.E. is the diagonal axis
  * An ovals outer bounds are also a rectangle
+ *
  * @param <T>
  */
-public abstract class RectangularShapeStrategy<T extends Shape> extends FigureBase {
-    private final Rectangle rectangle;
+public abstract class RectangularShapeBase<T extends Shape> extends FigureBase {
 
-    private final T shape;
+    private T shape;
 
 
-    public RectangularShapeStrategy(T shape, int x, int y, int w, int h) {
+    public RectangularShapeBase(T shape, int x, int y, int w, int h) {
         this.shape = shape;
-        rectangle = new Rectangle(x, y, w, h);
+        this.setBounds(new Point(x, y), new Point(x + w, y + h));
     }
 
     /**
@@ -32,9 +33,9 @@ public abstract class RectangularShapeStrategy<T extends Shape> extends FigureBa
     @Override
     public final void draw(Graphics g) {
         g.setColor(Color.WHITE);
-        drawFill(g, rectangle.x, rectangle.y, rectangle.width, rectangle.height);
+        drawFill(g, getBounds().x, getBounds().y, getBounds().width, getBounds().height);
         g.setColor(Color.BLACK);
-        drawBorder(g, rectangle.x, rectangle.y, rectangle.width, rectangle.height);
+        drawBorder(g, getBounds().x, getBounds().y, getBounds().width, getBounds().height);
     }
 
     protected abstract void drawFill(Graphics g, int x, int y, int width, int height);
@@ -45,14 +46,14 @@ public abstract class RectangularShapeStrategy<T extends Shape> extends FigureBa
 
     @Override
     public final void setBounds(Point origin, Point corner) {
-        rectangle.setFrameFromDiagonal(origin, corner);
+        setBoundsOnShape(shape, origin, corner);
         handleFigureChange();
     }
-
+    public abstract void move(T shape, int dx, int dy) ;
     @Override
     public final void move(int dx, int dy) {
         if (dx != 0 && dy != 0) {
-            rectangle.setLocation(rectangle.x + dx, rectangle.y + dy);
+            move(shape, dx, dy);
             handleFigureChange();
         }
     }
@@ -64,7 +65,7 @@ public abstract class RectangularShapeStrategy<T extends Shape> extends FigureBa
 
     @Override
     public final Rectangle getBounds() {
-        return rectangle.getBounds();
+        return shape.getBounds();
     }
 
 

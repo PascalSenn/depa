@@ -18,7 +18,7 @@ import jdraw.framework.FigureHandle;
  *
  * @author Christoph Denzler
  */
-public class Rect extends RectangularShapeStrategy<Rectangle2D> {
+public class Rect extends RectangularShapeBase<Rectangle2D> {
     private static final long serialVersionUID = 9120181044386552132L;
 
     /**
@@ -46,6 +46,12 @@ public class Rect extends RectangularShapeStrategy<Rectangle2D> {
     @Override
     public void setBoundsOnShape(Rectangle2D shape, Point origin, Point corner) {
         shape.setFrameFromDiagonal(origin, corner);
+    }
+
+    @Override
+    public void move(Rectangle2D shape, int dx, int dy) {
+        var bounds = shape.getBounds();
+        shape.setFrame(bounds.x+dx,bounds.y+dy, bounds.width, bounds.height);
     }
 
     /**
