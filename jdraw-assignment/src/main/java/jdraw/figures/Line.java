@@ -7,9 +7,12 @@ package jdraw.figures;
 
 import jdraw.framework.Figure;
 import jdraw.framework.FigureHandle;
+import jdraw.handles.LineEndHandle;
+import jdraw.handles.LineStartHandle;
 
 import java.awt.*;
 import java.awt.geom.Line2D;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -29,7 +32,7 @@ public class Line extends PointToPointBase<Line2D> {
      * @param h the rectangle's height
      */
     public Line(int x, int y, int w, int h) {
-        super(new Line2D.Double(), x,y,w,h);
+        super(new Line2D.Double(), x, y, w, h);
     }
 
     @Override
@@ -55,7 +58,10 @@ public class Line extends PointToPointBase<Line2D> {
      */
     @Override
     public List<FigureHandle> getHandles() {
-        return null;
+        var list = new ArrayList<FigureHandle>();
+        list.add(new LineEndHandle(this));
+        list.add(new LineStartHandle(this));
+        return list;
     }
 
     @Override

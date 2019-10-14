@@ -7,9 +7,14 @@ package jdraw.figures;
 
 import jdraw.framework.Figure;
 import jdraw.framework.FigureHandle;
+import jdraw.handles.EastHandle;
+import jdraw.handles.NorthHandle;
+import jdraw.handles.SouthHandle;
+import jdraw.handles.WestHandle;
 
 import java.awt.*;
 import java.awt.geom.Ellipse2D;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -65,7 +70,12 @@ public class Oval extends RectangularShapeBase<Ellipse2D> {
      */
     @Override
     public List<FigureHandle> getHandles() {
-        return null;
+        var list = new ArrayList<FigureHandle>();
+        list.add(new NorthHandle(this));
+        list.add(new EastHandle(this));
+        list.add(new WestHandle(this));
+        list.add(new SouthHandle(this));
+        return list;
     }
 
     @Override
