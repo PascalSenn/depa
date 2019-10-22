@@ -4,7 +4,7 @@ import jdraw.framework.Figure;
 
 import java.awt.*;
 
-public class LineEndHandle extends FigureHandleBase {
+public class LineEndHandle extends LineHandleBase {
 
     public LineEndHandle(Figure owner) {
         super(owner);
@@ -22,6 +22,6 @@ public class LineEndHandle extends FigureHandleBase {
     @Override
     protected void interactionChanged(Point startPoint, Point endPoint) {
         var bounds = this.getOwner().getBounds();
-        getOwner().setBounds(new Point(bounds.x, bounds.y), endPoint);
+        setBounds(new Point(bounds.x, bounds.y), endPoint);
     }
 }
